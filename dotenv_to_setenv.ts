@@ -7,13 +7,12 @@ const run = async (): Promise<void> => {
         core.debug('Starting reading .env id extraction.')
 
         const path = core.getInput('path')
-        const absolutePath = __dirname + '/' + path;
-        if (fs.existsSync(absolutePath) == false) {
-            core.setFailed(`No .env file found on path ${absolutePath}`)
+        if (fs.existsSync(path) == false) {
+            core.setFailed(`No .env file found on path ${path}`)
             return;
         }
 
-        const content = fs.readFileSync(absolutePath, 'utf8')
+        const content = fs.readFileSync(path, 'utf8')
         const buffer = Buffer.from(content)
         const dotEnvConfig = dotenv.parse(buffer)
 
