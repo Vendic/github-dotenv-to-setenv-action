@@ -1,5 +1,5 @@
 {
-    "name": "github-doteenv-to-setenv-action",
+    "name": "github-dotenv-to-setenv-action",
     "version": "1.0.0",
     "description": "GitHub action to export a .env file to environment variables (via $GITHUB_ENV)",
     "main": "dotenv_to_setenv.ts",
