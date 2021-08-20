@@ -1,0 +1,12 @@
+name: 'github-doteenv-to-setenv-action'
+description: 'GitHub action to export a .env file to environment variables (via $GITHUB_ENV)'
+author: 'Tjitse-E'
+runs:
+    using: 'node12'
+    main: 'dist/index.js'
+inputs:
+    path:
+        description: Location to your .env file.
+        required: true
+        default: .env
+
