@@ -21,10 +21,10 @@ const run = async (): Promise<void> => {
         const path = getAbsolutePath(core.getInput("path", {required: true}));
         core.debug("Path : " + path);
 
-        if (fs.existsSync(path) == false) {
-            core.setFailed(`No .env file found on path ${path}`)
-            return;
-        }
+        // if (fs.existsSync(path) == false) {
+        //     core.setFailed(`No .env file found on path ${path}`)
+        //     return;
+        // }
 
         const content = fs.readFileSync(path, 'utf8')
         const buffer = Buffer.from(content)
