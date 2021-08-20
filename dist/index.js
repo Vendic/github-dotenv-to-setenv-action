@@ -716,19 +716,33 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(747);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(403);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(87);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(os__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(622);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
+
+
+function getAbsolutePath(inputFilePath) {
+    if (inputFilePath[0] !== "~")
+        return path__WEBPACK_IMPORTED_MODULE_4__.resolve(inputFilePath);
+    const homeDirectory = os__WEBPACK_IMPORTED_MODULE_3__.homedir();
+    if (homeDirectory)
+        return path__WEBPACK_IMPORTED_MODULE_4__.join(homeDirectory, inputFilePath.slice(1));
+    throw new Error("Unable to resole `~` to HOME");
+}
 const run = async () => {
     try {
         _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Starting reading .env id extraction.');
-        const path = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('path');
-        const absolutePath = __dirname + '/' + path;
-        if (fs__WEBPACK_IMPORTED_MODULE_1__.existsSync(absolutePath) == false) {
-            _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(`No .env file found on path ${absolutePath}`);
+        const path = getAbsolutePath(_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("path", { required: true }));
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug("Path : " + path);
+        if (fs__WEBPACK_IMPORTED_MODULE_1__.existsSync(path) == false) {
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(`No .env file found on path ${path}`);
             return;
         }
-        const content = fs__WEBPACK_IMPORTED_MODULE_1__.readFileSync(absolutePath, 'utf8');
+        const content = fs__WEBPACK_IMPORTED_MODULE_1__.readFileSync(path, 'utf8');
         const buffer = Buffer.from(content);
         const dotEnvConfig = dotenv__WEBPACK_IMPORTED_MODULE_2__/* .parse */ .Q(buffer);
         for (const [key, value] of Object.entries(dotEnvConfig)) {
