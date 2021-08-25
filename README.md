@@ -18,7 +18,7 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
 
-            -   name: Read dot eenv
+            -   name: Read dot env
                 uses: Vendic/github-dotenv-to-setenv-action@master
                 id: dotenv
                 with:
