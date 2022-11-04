@@ -2,7 +2,7 @@ name: 'github-dotenv-to-setenv-action'
 description: 'GitHub action to export a .env file to environment variables (via $GITHUB_ENV)'
 author: 'Tjitse-E'
 runs:
-    using: 'node12'
+    using: 'node16'
     main: 'dist/index.js'
 inputs:
     path:
